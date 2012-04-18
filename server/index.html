@@ -17,32 +17,43 @@
   <title> Alipi </title>
   <script type="text/javascript">
     function wget()
-    {
+{
     foruri = document.getElementById("inputurl").value;
     if(foruri.substring(0,7) == "http://") {
-    if(window.location.href == "http://dev.a11y.in/server/")
-    {
-    window.open("http://dev.a11y.in/web?foruri=" + encodeURIComponent(foruri));
+	if(window.location.href == "http://dev.a11y.in/server/")
+	{
+	    window.open("http://dev.a11y.in/web?foruri=" + encodeURIComponent(foruri));
+	}
+	else
+	{
+	    window.open("http://127.0.0.1:5000/?foruri=" + encodeURIComponent(foruri));
+	}
     }
-    else
+    else if(foruri.substring(0,7) != "http://")
     {
-    window.open("http://127.0.0.1:5000/?foruri=" + encodeURIComponent(foruri));
-    }
+	if(window.location.href == "http://dev.a11y.in/server/")
+	{
+	    window.open("http://dev.a11y.in/web?foruri=http" +encodeURIComponent('://' + foruri));
+	}
+	else{
+	    window.open("http://127.0.0.1:5000/?foruri=http" +encodeURIComponent('://' + foruri));
+	}
     }
     else if (foruri.substring(0,8) == "https://") {
-        window.open("http://127.0.0.1:5000/?foruri=" + encodeURIComponent(foruri));
+	window.open("http://127.0.0.1:5000/?foruri=" + encodeURIComponent(foruri));
     }
     else {
-    alert("Please enter 'HTTP' protocoled URL");
+	alert("Please enter 'HTTP' protocoled URL");
     }
-    }
+}
 </script>
     
 </head>
 <body>
   <fieldset>
     <legend> Enter a URL  </legend>
-  <input id="inputurl" placeholder="http://a11y.in/" />
+    <form onsubmit="wget();">
+  <input id="inputurl" placeholder="http://a11y.in/" /></form>
   <button type="submit" onClick="wget()"> Get</button>
   </fieldset>
 </body>
